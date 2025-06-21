@@ -1,0 +1,655 @@
+fileFormatVersion: 2
+guid: 75f00316e2fc39d46868ceacea0165cc
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 104
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 037bc704d0e0537488cd28f51c18d4b9
+      internalID: -1310701476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_1
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 104
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8320e4fff0cba1741be8cd6f81d3d61e
+      internalID: -1147604982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_2
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 104
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87207088996ee0a4d9b7a1ad5cbd103d
+      internalID: -1556762731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_3
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 104
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fa8b2a03feb2e64690c4f2616283b1d
+      internalID: 1861179195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_4
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 104
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 310cdfc77ccec1a4394de74e01de5e17
+      internalID: -1291848809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_5
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 104
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e68fab47359c5a84ba4490446a0f2271
+      internalID: -2040724092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_6
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 72
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b0c83716e72ada4fa49a1ec73280c8e
+      internalID: -735121341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_7
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 72
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 968ffc33468115a49908f85ebb9fb8d3
+      internalID: -538459089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_8
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 72
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbcdcb89a8afcd54e9915e05651da8cf
+      internalID: 1057461993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_9
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 72
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9afcbdbcded78934288e350e58124954
+      internalID: 526018007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_10
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 72
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd48cc7facc9a5441991dbe89924d2fc
+      internalID: -146172195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_11
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 72
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbfb1cd9a931ef2419aa2314f0ff9cda
+      internalID: -1215582772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_12
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 40
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ec391903ed1a244db07d7af189e9727
+      internalID: -516095719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_13
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 40
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6bd8cbf475159c4db15b71aa9e13342
+      internalID: -2144706364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_14
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 40
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58c2f043a20a3b64db514e047e43fa5f
+      internalID: 2125045197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_15
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 40
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ac87395cebc5174cafb66252a3938ab
+      internalID: -910944228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_16
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 40
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5b7d589ba6d7104ead06d2682e718d0
+      internalID: -439171434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_17
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 40
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d63cd125994290744b1f6a4be22f0735
+      internalID: -891627078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_18
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 8
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba6da3cc353119b498a4d3f13bbb6e61
+      internalID: -782992334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_19
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 8
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69504b8e45327c548a71b2f3362ca017
+      internalID: -666606463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_20
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 8
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b90b9438dad79234596f6cf14d1dc4d7
+      internalID: 426472967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_21
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 8
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cec4ed990025aab41b2068920d54133c
+      internalID: 1199651081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_22
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 8
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ed1eeb11f6163949814ca4f37d16292
+      internalID: -913440566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2D Cute Platform tileset_23
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 8
+        width: 32
+        height: 32
+      alignment: 3
+      pivot: {x: 1, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e87f9a0ca8f47b541a0778fdad7f767f
+      internalID: 88412947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      2D Cute Platform tileset_0: -1310701476
+      2D Cute Platform tileset_1: -1147604982
+      2D Cute Platform tileset_10: -146172195
+      2D Cute Platform tileset_11: -1215582772
+      2D Cute Platform tileset_12: -516095719
+      2D Cute Platform tileset_13: -2144706364
+      2D Cute Platform tileset_14: 2125045197
+      2D Cute Platform tileset_15: -910944228
+      2D Cute Platform tileset_16: -439171434
+      2D Cute Platform tileset_17: -891627078
+      2D Cute Platform tileset_18: -782992334
+      2D Cute Platform tileset_19: -666606463
+      2D Cute Platform tileset_2: -1556762731
+      2D Cute Platform tileset_20: 426472967
+      2D Cute Platform tileset_21: 1199651081
+      2D Cute Platform tileset_22: -913440566
+      2D Cute Platform tileset_23: 88412947
+      2D Cute Platform tileset_3: 1861179195
+      2D Cute Platform tileset_4: -1291848809
+      2D Cute Platform tileset_5: -2040724092
+      2D Cute Platform tileset_6: -735121341
+      2D Cute Platform tileset_7: -538459089
+      2D Cute Platform tileset_8: 1057461993
+      2D Cute Platform tileset_9: 526018007
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -8,7 +8,8 @@ public class DeathZone : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player Died: Hit DeathZone or Spike");
-            SceneManager.LoadScene("DeathScene");
+            // SceneManager.LoadScene("DeathScene");
+            GameManager.Instance.PlayerDied();
         }
     }
 } 

@@ -43,13 +43,20 @@ public class PlayerController2D : MonoBehaviour
     private bool isSliding = false;
     private float slideTimeLeft;
 
+    // New variables for short press movement
+    [Header("Short Press Movement")]
+    public float shortPressMoveDuration = 0.15f;
+    public float shortPressMoveSpeed = 7f;
+    private float shortPressMoveTimer = 0f;
+    private float moveDirection = 0f;
+
     // Slide/加速参数
     private float targetMoveDir = 0f;
     private bool isAccelerating = false;
     private float baseMoveSpeed = 5f;
     public float maxMoveSpeed = 15f;
     public float accelRate = 10f;
-    public float decelRate = 25f;
+    public float decelRate = 50f;
 
     // Wall Slide
     [Header("Wall Slide")]
@@ -287,6 +294,16 @@ public class PlayerController2D : MonoBehaviour
             targetMoveDir = moveInput;
             moveSpeed = baseMoveSpeed;
         }
+
+        // New logic for short press movement
+        if (isGrounded && !isDashing && !isSliding)
+        {
+             if (moveInput != 0 && shortPressMoveTimer <= 0)
+             {
+                moveDirection = moveInput;
+                shortPressMoveTimer = shortPressMoveDuration;
+             }
+        }
     }
 
     void FixedUpdate()
@@ -348,6 +365,17 @@ public class PlayerController2D : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, -wallSlideSpeed);
         }
+        else if (shortPressMoveTimer > 0)
+        {
+             // Short press movement logic
+             float speed = isCrouching ? crouchSpeed : shortPressMoveSpeed;
+             rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+             shortPressMoveTimer -= Time.fixedDeltaTime;
+             if (shortPressMoveTimer <= 0)
+             {
+                rb.velocity = new Vector2(0, rb.velocity.y); // Stop after move
+             }
+        }
         else if (!isGrounded)
         {
             // 空中移动：只能通过反方向键减速，不能直接反向
@@ -373,8 +401,13 @@ public class PlayerController2D : MonoBehaviour
         else
         {
             // --- Normal Move ---
-            float speed = isCrouching ? crouchSpeed : moveSpeed;
-            rb.velocity = new Vector2(targetMoveDir * speed, rb.velocity.y);
+            // float speed = isCrouching ? crouchSpeed : moveSpeed;
+            // rb.velocity = new Vector2(targetMoveDir * speed, rb.velocity.y);
+            // Stop moving if not pressing any key
+            if (isGrounded)
+            {
+                 rb.velocity = new Vector2(0, rb.velocity.y);
+            }
         }
 
         // Wall Jump后短暂禁止水平输入
@@ -393,7 +426,8 @@ public class PlayerController2D : MonoBehaviour
         if (collision.gameObject.CompareTag("trap"))
         {
             Debug.Log("Player Died: Collided with a trap.");
-            SceneManager.LoadScene("DeathScene");
+            // SceneManager.LoadScene("DeathScene");
+            GameManager.Instance.PlayerDied();
         }
     }
 }
