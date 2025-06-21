@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController2D : MonoBehaviour
 {
@@ -48,6 +49,7 @@ public class PlayerController2D : MonoBehaviour
     private float baseMoveSpeed = 5f;
     public float maxMoveSpeed = 15f;
     public float accelRate = 10f;
+    public float decelRate = 25f;
 
     // Wall Slide
     [Header("Wall Slide")]
@@ -208,7 +210,7 @@ public class PlayerController2D : MonoBehaviour
                 }
                 else if (moveInput != 0 && Mathf.Sign(moveInput) != Mathf.Sign(targetMoveDir))
                 {
-                    moveSpeed = Mathf.Max(moveSpeed - accelRate * 1.5f * Time.deltaTime, 0f);
+                    moveSpeed = Mathf.Max(moveSpeed - decelRate * Time.deltaTime, 0f);
                     if (moveSpeed == 0f)
                         targetMoveDir = moveInput;
                 }
@@ -216,7 +218,7 @@ public class PlayerController2D : MonoBehaviour
                 {
                     if (moveSpeed > baseMoveSpeed)
                     {
-                        moveSpeed = Mathf.Max(moveSpeed - accelRate * Time.deltaTime, baseMoveSpeed);
+                        moveSpeed = Mathf.Max(moveSpeed - decelRate * Time.deltaTime, baseMoveSpeed);
                         if (moveSpeed == baseMoveSpeed)
                         {
                             targetMoveDir = 0f;
@@ -242,7 +244,7 @@ public class PlayerController2D : MonoBehaviour
                     else if (Mathf.Sign(moveInput) != Mathf.Sign(targetMoveDir))
                     {
                         // 空中反向，1.5倍速减速到0再反向
-                        moveSpeed = Mathf.Max(moveSpeed - accelRate * 1.5f * Time.deltaTime, 0f);
+                        moveSpeed = Mathf.Max(moveSpeed - decelRate * Time.deltaTime, 0f);
                         if (moveSpeed == 0f)
                             targetMoveDir = moveInput;
                     }
@@ -253,7 +255,7 @@ public class PlayerController2D : MonoBehaviour
             {
                 if (moveInput != 0)
                 {
-                    moveSpeed = Mathf.Max(moveSpeed - accelRate * Time.deltaTime, baseMoveSpeed);
+                    moveSpeed = Mathf.Max(moveSpeed - decelRate * Time.deltaTime, baseMoveSpeed);
                     if (moveSpeed == baseMoveSpeed)
                     {
                         targetMoveDir = moveInput;
@@ -264,7 +266,7 @@ public class PlayerController2D : MonoBehaviour
                 {
                     if (moveSpeed > baseMoveSpeed)
                     {
-                        moveSpeed = Mathf.Max(moveSpeed - accelRate * Time.deltaTime, baseMoveSpeed);
+                        moveSpeed = Mathf.Max(moveSpeed - decelRate * Time.deltaTime, baseMoveSpeed);
                         if (moveSpeed == baseMoveSpeed)
                         {
                             targetMoveDir = 0f;
@@ -294,6 +296,7 @@ public class PlayerController2D : MonoBehaviour
             justWallJumped = false;
             return;
         }
+        // Use LayerMask for ground check for efficiency and correctness.
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
         // wall slide 只检测Wall Layer
@@ -382,6 +385,15 @@ public class PlayerController2D : MonoBehaviour
             {
                 isWallJumping = false;
             }
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("trap"))
+        {
+            Debug.Log("Player Died: Collided with a trap.");
+            SceneManager.LoadScene("DeathScene");
         }
     }
 }
