@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5610822896203026310}
   - component: {fileID: 3354501371212599332}
   - component: {fileID: 4999234272325803328}
-  - component: {fileID: 2636410058065472892}
+  - component: {fileID: 5160071479144621744}
   m_Layer: 0
   m_Name: Flower
   m_TagString: Untagged
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e958ce664c98b284c9bf25033c032971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2636410058065472892
+--- !u!114 &5160071479144621744
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,5 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fef63c6f96f98a547b772b37f97d7a9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flowerCount: 0
+  flowerCount: 1
   flowerText: {fileID: 0}

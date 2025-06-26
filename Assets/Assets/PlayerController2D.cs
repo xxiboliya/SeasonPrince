@@ -79,6 +79,14 @@ public class PlayerController2D : MonoBehaviour
 
     public bool isOnVine = false;
 
+    private float currentBoost = 1f;
+    public float boostDecaySpeed = 1f; // 衰减速度，越大衰减越快
+    public float boostStartValue = 2f; // 初始加速倍率
+
+    public float dashCooldown = 1f; // 冲刺冷却时间（秒），可在Inspector设置
+    private float lastDashTime = -10f;
+    private bool isFKeyHeld = false;
+
     void Awake()
     {
         if (groundCheck == null)
@@ -126,6 +134,9 @@ public class PlayerController2D : MonoBehaviour
         float rawInput = Input.GetAxisRaw("Horizontal");
         moveInput = rawInput;
         isCrouching = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
+
+        // 在Update里主动检测地面，保证加速逻辑稳定
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
         // Wall Jump 输入检测
         if (isWallSliding && Input.GetButtonDown("Jump"))
@@ -213,20 +224,20 @@ public class PlayerController2D : MonoBehaviour
                     targetMoveDir = moveInput;
                 if (Mathf.Sign(moveInput) == Mathf.Sign(targetMoveDir) && moveInput != 0)
                 {
-                    moveSpeed = Mathf.Min(moveSpeed + accelRate * Time.deltaTime, maxMoveSpeed);
+                    baseMoveSpeed = Mathf.Min(baseMoveSpeed + accelRate * Time.deltaTime, maxMoveSpeed);
                 }
                 else if (moveInput != 0 && Mathf.Sign(moveInput) != Mathf.Sign(targetMoveDir))
                 {
-                    moveSpeed = Mathf.Max(moveSpeed - decelRate * Time.deltaTime, 0f);
-                    if (moveSpeed == 0f)
+                    baseMoveSpeed = Mathf.Max(baseMoveSpeed - decelRate * Time.deltaTime, 0f);
+                    if (baseMoveSpeed == 0f)
                         targetMoveDir = moveInput;
                 }
                 else if (moveInput == 0)
                 {
-                    if (moveSpeed > baseMoveSpeed)
+                    if (baseMoveSpeed > moveSpeed)
                     {
-                        moveSpeed = Mathf.Max(moveSpeed - decelRate * Time.deltaTime, baseMoveSpeed);
-                        if (moveSpeed == baseMoveSpeed)
+                        baseMoveSpeed = Mathf.Max(baseMoveSpeed - decelRate * Time.deltaTime, moveSpeed);
+                        if (baseMoveSpeed == moveSpeed)
                         {
                             targetMoveDir = 0f;
                             isAccelerating = false;
@@ -234,7 +245,7 @@ public class PlayerController2D : MonoBehaviour
                     }
                     else
                     {
-                        moveSpeed = baseMoveSpeed;
+                        baseMoveSpeed = moveSpeed;
                         targetMoveDir = 0f;
                         isAccelerating = false;
                     }
@@ -250,9 +261,8 @@ public class PlayerController2D : MonoBehaviour
                     }
                     else if (Mathf.Sign(moveInput) != Mathf.Sign(targetMoveDir))
                     {
-                        // 空中反向，1.5倍速减速到0再反向
-                        moveSpeed = Mathf.Max(moveSpeed - decelRate * Time.deltaTime, 0f);
-                        if (moveSpeed == 0f)
+                        baseMoveSpeed = Mathf.Max(baseMoveSpeed - decelRate * Time.deltaTime, 0f);
+                        if (baseMoveSpeed == 0f)
                             targetMoveDir = moveInput;
                     }
                 }
@@ -262,8 +272,8 @@ public class PlayerController2D : MonoBehaviour
             {
                 if (moveInput != 0)
                 {
-                    moveSpeed = Mathf.Max(moveSpeed - decelRate * Time.deltaTime, baseMoveSpeed);
-                    if (moveSpeed == baseMoveSpeed)
+                    baseMoveSpeed = Mathf.Max(baseMoveSpeed - decelRate * Time.deltaTime, moveSpeed);
+                    if (baseMoveSpeed == moveSpeed)
                     {
                         targetMoveDir = moveInput;
                         isAccelerating = false;
@@ -271,10 +281,10 @@ public class PlayerController2D : MonoBehaviour
                 }
                 else
                 {
-                    if (moveSpeed > baseMoveSpeed)
+                    if (baseMoveSpeed > moveSpeed)
                     {
-                        moveSpeed = Mathf.Max(moveSpeed - decelRate * Time.deltaTime, baseMoveSpeed);
-                        if (moveSpeed == baseMoveSpeed)
+                        baseMoveSpeed = Mathf.Max(baseMoveSpeed - decelRate * Time.deltaTime, moveSpeed);
+                        if (baseMoveSpeed == moveSpeed)
                         {
                             targetMoveDir = 0f;
                             isAccelerating = false;
@@ -282,7 +292,7 @@ public class PlayerController2D : MonoBehaviour
                     }
                     else
                     {
-                        moveSpeed = baseMoveSpeed;
+                        baseMoveSpeed = moveSpeed;
                         targetMoveDir = 0f;
                         isAccelerating = false;
                     }
@@ -292,7 +302,7 @@ public class PlayerController2D : MonoBehaviour
         else
         {
             targetMoveDir = moveInput;
-            moveSpeed = baseMoveSpeed;
+            baseMoveSpeed = moveSpeed;
         }
 
         // New logic for short press movement
@@ -304,6 +314,31 @@ public class PlayerController2D : MonoBehaviour
                 shortPressMoveTimer = shortPressMoveDuration;
              }
         }
+
+        // F键冲刺逻辑（单次触发，冷却时间限制）
+        if (isGrounded && Input.GetKey(KeyCode.F))
+        {
+            if (!isFKeyHeld && Time.time - lastDashTime >= dashCooldown)
+            {
+                currentBoost = boostStartValue;
+                lastDashTime = Time.time;
+                isFKeyHeld = true;
+            }
+        }
+        else
+        {
+            isFKeyHeld = false;
+        }
+        // 冲刺衰减
+        if (currentBoost > 1f)
+        {
+            currentBoost = Mathf.MoveTowards(currentBoost, 1f, boostDecaySpeed * Time.deltaTime);
+        }
+        else
+        {
+            currentBoost = 1f;
+        }
+        moveSpeed = baseMoveSpeed * currentBoost;
     }
 
     void FixedUpdate()
@@ -401,13 +436,9 @@ public class PlayerController2D : MonoBehaviour
         else
         {
             // --- Normal Move ---
-            // float speed = isCrouching ? crouchSpeed : moveSpeed;
-            // rb.velocity = new Vector2(targetMoveDir * speed, rb.velocity.y);
-            // Stop moving if not pressing any key
-            if (isGrounded)
-            {
-                 rb.velocity = new Vector2(0, rb.velocity.y);
-            }
+            float vx = moveInput * moveSpeed;
+            if (float.IsNaN(vx) || float.IsInfinity(vx)) vx = 0f;
+            rb.velocity = new Vector2(vx, rb.velocity.y);
         }
 
         // Wall Jump后短暂禁止水平输入
