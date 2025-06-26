@@ -1,0 +1,47 @@
+{
+  "mcpServers": {
+    "browsermcp": {
+      "command": "npx",
+      "args": [
+        "@browsermcp/mcp@latest"
+      ]
+    },
+    "UnityMCP": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "C:\\Users\\15396\\AppData\\Local\\Programs\\UnityMCP\\UnityMcpServer\\src",
+        "server.py"
+      ]
+    },
+    "unityMCP": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:\\Users\\15396\\AppData\\Local\\Programs\\UnityMCP\\UnityMcpServer\\src",
+        "run",
+        "server.py"
+      ]
+    },
+    "Office Word Document Server": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@smithery/cli@latest",
+        "run",
+        "@GongRzhe/Office-Word-MCP-Server",
+        "--key",
+        "e65bbf1a-1318-4fe1-9491-0e8bebae3dc1"
+      ],
+      "env": {}
+    },
+    "word-document-server": {
+      "command": "python",
+      "args": [
+        "C:\\Users\\15396\\Office-Word-MCP-Server\\word_mcp_server.py"
+      ]
+    }
+  }
+} 
