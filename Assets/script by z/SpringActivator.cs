@@ -1,32 +1,17 @@
 using UnityEngine;
 
-public class ObjectActivator : MonoBehaviour
+public class MapObjectActivator : MonoBehaviour
 {
+    public GameObject[] objects; // 0号无用，1-3号分别对应1、2、3
+
     void Start()
     {
-        string objName = PlayerPrefs.GetString("ActiveObject", "");
-        if (!string.IsNullOrEmpty(objName))
+        int index = PlayerPrefs.GetInt("ActiveIndex", 0);
+        Debug.Log("激活index: " + index);
+        for (int i = 0; i < objects.Length; i++)
         {
-            // 先全部隐藏
-            GameObject obj1 = GameObject.Find("1");
-            GameObject obj2 = GameObject.Find("2");
-            if (obj1 != null) obj1.SetActive(false);
-            if (obj2 != null) obj2.SetActive(false);
-
-            // 激活目标
-            GameObject obj = GameObject.Find(objName);
-            if (obj != null)
-            {
-                obj.SetActive(true);
-            }
-            else
-            {
-                Debug.LogWarning("未找到对象: " + objName);
-            }
-        }
-        else
-        {
-            Debug.LogWarning("未设置ActiveObject参数");
+            if (objects[i] != null)
+                objects[i].SetActive(i == index);
         }
     }
 }

@@ -3,9 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class MapSelectButton : MonoBehaviour
 {
-    public void OnSelectMap(string objectName)
+    public void OnSelectMap(int index)
     {
-        PlayerPrefs.SetString("ActiveObject", objectName);
+        PlayerPrefs.SetInt("ActiveIndex", index);
         SceneManager.LoadScene("SampleScene");
     }
 }
