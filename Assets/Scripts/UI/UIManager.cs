@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -10,7 +11,6 @@ public class UIManager : MonoBehaviour
     public GameObject characterPanel;
     public GameObject achievementsPanel;
     public GameObject settingsPanel;
-    public GameObject chapter2LevelSelectPanel;
 
     void Awake()
     {
@@ -37,20 +37,12 @@ public class UIManager : MonoBehaviour
         if(characterPanel != null) characterPanel.SetActive(false);
         if(achievementsPanel != null) achievementsPanel.SetActive(false);
         if(settingsPanel != null) settingsPanel.SetActive(false);
-        if(chapter2LevelSelectPanel != null) chapter2LevelSelectPanel.SetActive(false);
     }
 
     public void ShowMainMenu()
     {
         HideAllPanels();
         if(mainMenuPanel != null) mainMenuPanel.SetActive(true);
-
-        // 重置所有主菜单按钮的状态
-        var buttonEffects = mainMenuPanel.GetComponentsInChildren<MenuButtonEffect>(true);
-        foreach (var effect in buttonEffects)
-        {
-            effect.ResetToDefault();
-        }
     }
 
     public void ShowChapterSelect()
@@ -75,11 +67,5 @@ public class UIManager : MonoBehaviour
     {
         HideAllPanels();
         if(settingsPanel != null) settingsPanel.SetActive(true);
-    }
-
-    public void ShowChapter2LevelSelect()
-    {
-        HideAllPanels();
-        if(chapter2LevelSelectPanel != null) chapter2LevelSelectPanel.SetActive(true);
     }
 }
