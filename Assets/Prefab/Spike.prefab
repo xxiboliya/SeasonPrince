@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4902817714740424440}
   - component: {fileID: 747820192762208616}
   - component: {fileID: 5124368860984390625}
+  - component: {fileID: -5479615865538754413}
   m_Layer: 0
   m_Name: Spike
   m_TagString: DeathZone
@@ -141,5 +142,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eeee101b3d3aad1439cb2e7f92f152e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-5479615865538754413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8920285720584909574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88c1c8cc991bad646965b8516ec8e69f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

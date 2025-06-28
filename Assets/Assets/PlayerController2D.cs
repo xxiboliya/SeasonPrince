@@ -79,14 +79,6 @@ public class PlayerController2D : MonoBehaviour
 
     public bool isOnVine = false;
 
-    private float currentBoost = 1f;
-    public float boostDecaySpeed = 1f; // 衰减速度，越大衰减越快
-    public float boostStartValue = 2f; // 初始加速倍率
-
-    public float dashCooldown = 1f; // 冲刺冷却时间（秒），可在Inspector设置
-    private float lastDashTime = -10f;
-    private bool isFKeyHeld = false;
-
     private bool canMove = true;
 
     void Awake()
@@ -344,31 +336,6 @@ public class PlayerController2D : MonoBehaviour
                 shortPressMoveTimer = shortPressMoveDuration;
              }
         }
-
-        // F键冲刺逻辑（单次触发，冷却时间限制）
-        if (isGrounded && Input.GetKey(KeyCode.F))
-        {
-            if (!isFKeyHeld && Time.time - lastDashTime >= dashCooldown)
-            {
-                currentBoost = boostStartValue;
-                lastDashTime = Time.time;
-                isFKeyHeld = true;
-            }
-        }
-        else
-        {
-            isFKeyHeld = false;
-        }
-        // 冲刺衰减
-        if (currentBoost > 1f)
-        {
-            currentBoost = Mathf.MoveTowards(currentBoost, 1f, boostDecaySpeed * Time.deltaTime);
-        }
-        else
-        {
-            currentBoost = 1f;
-        }
-        moveSpeed = baseMoveSpeed * currentBoost;
     }
 
     void FixedUpdate()
