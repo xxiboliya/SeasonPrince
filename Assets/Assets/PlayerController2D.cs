@@ -87,6 +87,8 @@ public class PlayerController2D : MonoBehaviour
     private float lastDashTime = -10f;
     private bool isFKeyHeld = false;
 
+    private bool canMove = true;
+
     void Awake()
     {
         if (groundCheck == null)
@@ -129,8 +131,36 @@ public class PlayerController2D : MonoBehaviour
         accelRate = 10f;
     }
 
+    void OnEnable()
+    {
+        DialogueUI.OnDialogueActiveChanged += SetCanMove;
+    }
+    void OnDisable()
+    {
+        DialogueUI.OnDialogueActiveChanged -= SetCanMove;
+    }
+    void SetCanMove(bool isActive)
+    {
+        if (isActive)
+        {
+            // 先完全静止
+            if (rb != null)
+                rb.velocity = Vector2.zero;
+            canMove = false;
+        }
+        else
+        {
+            canMove = true;
+        }
+    }
+
     void Update()
     {
+        if (!canMove)
+        {
+            rb.velocity = Vector2.zero;
+            return; // 禁止一切输入
+        }
         float rawInput = Input.GetAxisRaw("Horizontal");
         moveInput = rawInput;
         isCrouching = Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
@@ -459,6 +489,9 @@ public class PlayerController2D : MonoBehaviour
             Debug.Log("Player Died: Collided with a trap.");
             // SceneManager.LoadScene("DeathScene");
             GameManager.Instance.PlayerDied();
+            // 新增：重置能量计数
+            EatManager.ResetEats();
+            Eat.ResetCount();
         }
     }
 }

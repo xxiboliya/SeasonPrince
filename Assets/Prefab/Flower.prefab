@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 4654175968595224122}
   - component: {fileID: 5610822896203026310}
   - component: {fileID: 3354501371212599332}
-  - component: {fileID: 4999234272325803328}
-  - component: {fileID: 5160071479144621744}
+  - component: {fileID: 6212413401071591018}
   m_Layer: 0
   m_Name: Flower
   m_TagString: Untagged
@@ -122,7 +121,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.15
---- !u!114 &4999234272325803328
+--- !u!114 &6212413401071591018
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,20 +130,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 605426736953927162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e958ce664c98b284c9bf25033c032971, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f5250429a03ade4d9516d0ffd2d02b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5160071479144621744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605426736953927162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fef63c6f96f98a547b772b37f97d7a9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flowerCount: 1
-  flowerText: {fileID: 0}
+  energyName: "\u68EE\u6797"
