@@ -1,11 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class FlowerUI : MonoBehaviour
 {
     public int flowerCount = 0;
-    public TMP_Text flowerText;
+    public Text flowerText;
     private static FlowerUI _instance;
     public static FlowerUI Instance => _instance;
 
@@ -37,14 +36,6 @@ public class FlowerUI : MonoBehaviour
         if (flowerText != null)
         {
             flowerText.text = flowerCount.ToString();
-        }
-    }
-
-    public void SetFlowerCount(int count)
-    {
-        if (flowerText != null)
-        {
-            flowerText.text = count.ToString();
         }
     }
 } 

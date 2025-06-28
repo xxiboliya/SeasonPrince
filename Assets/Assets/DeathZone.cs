@@ -7,7 +7,6 @@ public class DeathZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            MusicManager.Instance.PlayMusic2();
             Debug.Log("Player Died: Hit DeathZone or Spike");
             // SceneManager.LoadScene("DeathScene");
             GameManager.Instance.PlayerDied();

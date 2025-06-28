@@ -13,6 +13,5 @@ public class MapObjectActivator : MonoBehaviour
             if (objects[i] != null)
                 objects[i].SetActive(i == index);
         }
-        MusicManager.Instance.PlayMusic1();
     }
 }

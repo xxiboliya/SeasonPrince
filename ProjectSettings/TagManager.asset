@@ -7,7 +7,6 @@ TagManager:
   - DeathZone
   - Ground
   - trap
-  - food
   layers:
   - Default
   - TransparentFX

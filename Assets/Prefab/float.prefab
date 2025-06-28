@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5775759392411674872}
   - component: {fileID: 510514699828027285}
   - component: {fileID: 5432069990193570396}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: float
-  m_TagString: food
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

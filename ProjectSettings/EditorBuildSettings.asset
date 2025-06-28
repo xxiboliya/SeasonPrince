@@ -11,16 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DeathScene.unity
     guid: e61609ff2b14cea4aad6da692a653fa7
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: 8a7d5813f211c2140951e9ce796f0fe8
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/StartScene.unity
     guid: 7060e8a09ea9ad5448b34012cc51365e
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MapSelectScene.unity
     guid: a646e641349ffb0488531103a3ffc0b8
-  - enabled: 1
-    path: Assets/Scenes/NewStartScene.unity
-    guid: dc1cba4b4d8f81e49bc70c6101ca372e
   m_configObjects: {}
