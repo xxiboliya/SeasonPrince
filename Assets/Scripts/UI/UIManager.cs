@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -11,6 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject characterPanel;
     public GameObject achievementsPanel;
     public GameObject settingsPanel;
+    public GameObject chapter2LevelSelectPanel;
 
     void Awake()
     {
@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
         if(characterPanel != null) characterPanel.SetActive(false);
         if(achievementsPanel != null) achievementsPanel.SetActive(false);
         if(settingsPanel != null) settingsPanel.SetActive(false);
+        if(chapter2LevelSelectPanel != null) chapter2LevelSelectPanel.SetActive(false);
     }
 
     public void ShowMainMenu()
@@ -67,5 +68,11 @@ public class UIManager : MonoBehaviour
     {
         HideAllPanels();
         if(settingsPanel != null) settingsPanel.SetActive(true);
+    }
+
+    public void ShowChapter2LevelSelect()
+    {
+        HideAllPanels();
+        if(chapter2LevelSelectPanel != null) chapter2LevelSelectPanel.SetActive(true);
     }
 }
