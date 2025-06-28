@@ -1,13 +1,31 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class FlowerCollectible : MonoBehaviour
 {
+    private static int flowerCount = 0;
+    private static FlowerUI flowerUI;
+
+    private void Start()
+    {
+        if (flowerUI == null)
+        {
+            flowerUI = FindObjectOfType<FlowerUI>();
+        }
+        // 初始化时刷新一次UI
+        flowerUI?.SetFlowerCount(flowerCount);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            FlowerUI.Instance.AddFlower();
+            flowerCount++;
+            if (flowerUI == null)
+            {
+                flowerUI = FindObjectOfType<FlowerUI>();
+            }
+            flowerUI?.SetFlowerCount(flowerCount);
             Destroy(gameObject);
         }
     }
@@ -17,7 +35,7 @@ public class FlowerCounter : MonoBehaviour
 {
     public static FlowerCounter Instance { get; private set; }
     public int flowerCount = 0;
-    public Text flowerText;
+    public TMP_Text flowerText;
 
     private void Awake()
     {

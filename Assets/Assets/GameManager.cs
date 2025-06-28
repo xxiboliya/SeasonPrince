@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     }
 
     void Start()
-    {
+    {MusicManager.Instance.PlayMusic1();
         if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void PlayerDied()
-    {
+    {MusicManager.Instance.PlayMusic2();
         // Show the death UI panel
         if(deathUIPanel != null)
         {
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void Restart()
-    {
+    {MusicManager.Instance.PlayMusic1();
         // Hide the death UI panel
         if(deathUIPanel != null)
         {

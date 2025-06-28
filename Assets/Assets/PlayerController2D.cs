@@ -87,6 +87,8 @@ public class PlayerController2D : MonoBehaviour
     private float lastDashTime = -10f;
     private bool isFKeyHeld = false;
 
+    private bool hasPlayedDeathMusic = false;
+
     void Awake()
     {
         if (groundCheck == null)
@@ -121,6 +123,7 @@ public class PlayerController2D : MonoBehaviour
 
     void Start()
     {
+        hasPlayedDeathMusic = false;
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 4f;
         originalGravityScale = rb.gravityScale;
@@ -454,11 +457,17 @@ public class PlayerController2D : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("trap"))
+        if (collision.gameObject.CompareTag("trap") && !hasPlayedDeathMusic)
         {
+            
             Debug.Log("Player Died: Collided with a trap.");
             // SceneManager.LoadScene("DeathScene");
             GameManager.Instance.PlayerDied();
         }
+    }
+
+    public void ResetDeathFlag()
+    {
+        hasPlayedDeathMusic = false;
     }
 }
