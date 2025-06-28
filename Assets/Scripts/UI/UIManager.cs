@@ -44,6 +44,13 @@ public class UIManager : MonoBehaviour
     {
         HideAllPanels();
         if(mainMenuPanel != null) mainMenuPanel.SetActive(true);
+
+        // 重置所有主菜单按钮的状态
+        var buttonEffects = mainMenuPanel.GetComponentsInChildren<MenuButtonEffect>(true);
+        foreach (var effect in buttonEffects)
+        {
+            effect.ResetToDefault();
+        }
     }
 
     public void ShowChapterSelect()

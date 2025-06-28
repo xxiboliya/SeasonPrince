@@ -25,4 +25,10 @@ public class MenuButtonEffect : MonoBehaviour, IPointerEnterHandler, IPointerExi
         buttonText.gameObject.SetActive(true);
         arrowImage.gameObject.SetActive(false);
     }
+
+    public void ResetToDefault()
+    {
+        if (buttonText != null) buttonText.gameObject.SetActive(true);
+        if (arrowImage != null) arrowImage.gameObject.SetActive(false);
+    }
 }
