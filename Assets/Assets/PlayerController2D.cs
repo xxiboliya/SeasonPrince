@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerController2D : MonoBehaviour
 {
@@ -31,11 +32,14 @@ public class PlayerController2D : MonoBehaviour
     private bool isDashing = false;
     private float dashTimeLeft;
     private bool canAirDash = true;
+    private float dashCooldownTimer = 0f; // 冲刺CD计时器
+    public float dashCooldown = 0.2f; // 冲刺CD
 
     // Glide
     public float glideGravityScale = 0.3f;
     private bool isGliding = false;
     private float originalGravityScale;
+    private float glideTargetVx = 0f; // 漂浮时的目标速度
 
     // Slide
     public float slideSpeed = 8f;
@@ -81,6 +85,17 @@ public class PlayerController2D : MonoBehaviour
 
     private bool canMove = true;
 
+    [Header("Effects")]
+    public GameObject doubleJumpEffectPrefab; // 二段跳特效Prefab
+    public GameObject dashEffectPrefab; // 冲刺特效Prefab
+    public GameObject glideEffectPrefab; // 漂浮特效Prefab
+    private GameObject currentGlideEffect; // 当前漂浮特效实例
+
+    private bool wasDashing = false; // 记录上帧冲刺状态
+    private bool prevIsGliding = false; // 记录上帧漂浮状态
+
+    private Animator animator;
+
     void Awake()
     {
         if (groundCheck == null)
@@ -121,6 +136,17 @@ public class PlayerController2D : MonoBehaviour
         baseMoveSpeed = moveSpeed;
         maxMoveSpeed = 15f;
         accelRate = 10f;
+        animator = GetComponent<Animator>();
+        // 进入游戏时关闭MagicArea02_gold_Instance的粒子播放
+        Transform magicArea = transform.Find("MagicArea02_gold_Instance");
+        if (magicArea != null)
+        {
+            var ps = magicArea.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            }
+        }
     }
 
     void OnEnable()
@@ -190,6 +216,11 @@ public class PlayerController2D : MonoBehaviour
                 {
                     rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                     canDoubleJump = false;
+                    // 只在空中二段跳时释放特效
+                    if (!isGrounded && doubleJumpEffectPrefab != null)
+                    {
+                        Instantiate(doubleJumpEffectPrefab, transform.position, Quaternion.identity);
+                    }
                 }
             }
             // 只有在下落、未二段跳后，且长按空格时才滑翔
@@ -336,6 +367,37 @@ public class PlayerController2D : MonoBehaviour
                 shortPressMoveTimer = shortPressMoveDuration;
              }
         }
+
+        // 检测冲刺开始，绑定特效播放到isDashing状态变化
+        if (isDashing && !wasDashing)
+        {
+            PlayDashEffect();
+        }
+        wasDashing = isDashing;
+
+        // 冲刺重置逻辑：只有竖直速度为0时重置canAirDash
+        if (Mathf.Abs(rb.velocity.y) < 0.01f)
+            canAirDash = true;
+
+        // 直接控制MagicArea02_gold_Instance特效播放（仅在状态变化时触发）
+        Transform magicArea = transform.Find("MagicArea02_gold_Instance");
+        if (magicArea != null)
+        {
+            var ps = magicArea.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                if (isGliding && !prevIsGliding)
+                {
+                    ps.Clear();
+                    ps.Play(); // 只在刚进入漂浮时Restart
+                }
+                else if (!isGliding && prevIsGliding)
+                {
+                    ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                }
+            }
+        }
+        prevIsGliding = isGliding;
     }
 
     void FixedUpdate()
@@ -358,7 +420,16 @@ public class PlayerController2D : MonoBehaviour
             isWallSliding = (leftWall && moveInput < 0) || (rightWall && moveInput > 0);
         }
 
-        // --- Dash ---
+        // --- Dash 触发 ---
+        dashCooldownTimer -= Time.deltaTime;
+        if (enableDash && Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimer <= 0f && (isGrounded || (canAirDash && !isDashing)))
+        {
+            isDashing = true;
+            dashTimeLeft = dashDuration;
+            if (!isGrounded) canAirDash = false;
+            dashCooldownTimer = dashCooldown;
+        }
+        // --- Dash 物理 ---
         if (isDashing)
         {
             rb.velocity = new Vector2(moveInput * dashSpeed, 0);
@@ -410,25 +481,57 @@ public class PlayerController2D : MonoBehaviour
         }
         else if (!isGrounded)
         {
-            // 空中移动：只能通过反方向键减速，不能直接反向
             float airSpeed = baseMoveSpeed;
             float vx = rb.velocity.x;
-            if (Mathf.Abs(moveInput) > 0.01f && !isWallJumping)
+            if (isGliding)
             {
-                if (Mathf.Sign(moveInput) == Mathf.Sign(vx) || Mathf.Abs(vx) < 0.01f)
+                float input = moveInput;
+                float speed = moveSpeed;
+                float turnSmooth = 8f; // 缓冲系数
+
+                // 判断是否同向
+                if (Mathf.Abs(input) > 0.01f)
                 {
-                    // 同向或已停止，维持当前速度
-                    rb.velocity = new Vector2(moveInput * airSpeed, rb.velocity.y);
+                    if (Mathf.Sign(input) == Mathf.Sign(vx) || Mathf.Abs(vx) < 0.05f)
+                    {
+                        // 同向或已接近0，目标速度为input*speed
+                        glideTargetVx = input * speed;
+                    }
+                    else
+                    {
+                        // 反向，目标速度先为0
+                        glideTargetVx = 0f;
+                    }
                 }
                 else
                 {
-                    // 反向，减速到0，不能直接反向
-                    float decel = accelRate * 1.5f * Time.fixedDeltaTime;
-                    float newVx = Mathf.MoveTowards(vx, 0, decel);
-                    rb.velocity = new Vector2(newVx, rb.velocity.y);
+                    // 无输入，缓冲到0
+                    glideTargetVx = 0f;
                 }
+
+                float newVx = Mathf.Lerp(vx, glideTargetVx, turnSmooth * Time.fixedDeltaTime);
+                rb.velocity = new Vector2(newVx, rb.velocity.y);
             }
-            // 没有输入时，保持原速度
+            else
+            {
+                // 空中移动：只能通过反方向键减速，不能直接反向
+                if (Mathf.Abs(moveInput) > 0.01f && !isWallJumping)
+                {
+                    if (Mathf.Sign(moveInput) == Mathf.Sign(vx) || Mathf.Abs(vx) < 0.01f)
+                    {
+                        // 同向或已停止，维持当前速度
+                        rb.velocity = new Vector2(moveInput * airSpeed, rb.velocity.y);
+                    }
+                    else
+                    {
+                        // 反向，减速到0，不能直接反向
+                        float decel = accelRate * 1.5f * Time.fixedDeltaTime;
+                        float newVx = Mathf.MoveTowards(vx, 0, decel);
+                        rb.velocity = new Vector2(newVx, rb.velocity.y);
+                    }
+                }
+                // 没有输入时，保持原速度
+            }
         }
         else
         {
@@ -454,11 +557,40 @@ public class PlayerController2D : MonoBehaviour
         if (collision.gameObject.CompareTag("trap"))
         {
             Debug.Log("Player Died: Collided with a trap.");
-            // SceneManager.LoadScene("DeathScene");
+            if (animator != null)
+            {
+                animator.SetTrigger("isHurt");
+            }
             GameManager.Instance.PlayerDied();
-            // 新增：重置能量计数
             EatManager.ResetEats();
             Eat.ResetCount();
         }
+    }
+
+    // 冲刺特效播放函数
+    private void PlayDashEffect()
+    {
+        if (dashEffectPrefab != null && moveInput != 0)
+        {
+            float offsetX = moveInput > 0 ? -0.7f : 0.7f;
+            Vector3 effectPos = transform.position + new Vector3(offsetX, 0.1f, 0);
+            Quaternion effectRot = moveInput > 0 ? Quaternion.Euler(0, -90, 0) : Quaternion.Euler(0, 90, 0);
+            var effect = Instantiate(dashEffectPrefab, effectPos, effectRot, transform);
+            effect.SetActive(true);
+            var ps = effect.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                ps.Play();
+                float delay = ps.main.duration + ps.main.startLifetime.constantMax;
+                StartCoroutine(ClearParticlesAfter(effect, ps, delay));
+            }
+        }
+    }
+
+    private System.Collections.IEnumerator ClearParticlesAfter(GameObject effectObj, ParticleSystem ps, float delay)
+    {
+        yield return new WaitForSeconds(delay + 0.1f); // 残留0.1秒
+        ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        Destroy(effectObj);
     }
 }

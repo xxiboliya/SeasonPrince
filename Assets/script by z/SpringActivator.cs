@@ -5,15 +5,16 @@ public class ObjectActivator : MonoBehaviour
     void Start()
     {
         string objName = PlayerPrefs.GetString("ActiveObject", "");
+        // 先全部隐藏
+        string[] allNames = { "1", "2", "3" };
+        foreach (var name in allNames)
+        {
+            GameObject obj = GameObject.Find(name);
+            if (obj != null) obj.SetActive(false);
+        }
+        // 激活目标
         if (!string.IsNullOrEmpty(objName))
         {
-            // 先全部隐藏
-            GameObject obj1 = GameObject.Find("1");
-            GameObject obj2 = GameObject.Find("2");
-            if (obj1 != null) obj1.SetActive(false);
-            if (obj2 != null) obj2.SetActive(false);
-
-            // 激活目标
             GameObject obj = GameObject.Find(objName);
             if (obj != null)
             {
@@ -26,7 +27,12 @@ public class ObjectActivator : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("未设置ActiveObject参数");
+            // 没有设置则默认激活全部
+            foreach (var name in allNames)
+            {
+                GameObject obj = GameObject.Find(name);
+                if (obj != null) obj.SetActive(true);
+            }
         }
     }
 }
