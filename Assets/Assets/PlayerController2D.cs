@@ -398,6 +398,16 @@ public class PlayerController2D : MonoBehaviour
             }
         }
         prevIsGliding = isGliding;
+
+        // --- 动画参数同步 ---
+        if (animator != null)
+        {
+            animator.SetBool("isJumping", !isGrounded);
+            animator.SetBool("isDashing", isDashing);
+            animator.SetBool("isWalking", moveInput != 0);
+            // 受伤/死亡逻辑（如有）
+            // if (isHurt) animator.SetTrigger("isHurt");
+        }
     }
 
     void FixedUpdate()
